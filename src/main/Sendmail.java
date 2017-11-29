@@ -20,125 +20,125 @@ public class Sendmail {
     	 
            Properties prop = new Properties();
            prop.setProperty("mail.host", "smtp.qiye.163.com");
-           prop.setProperty("mail.transport.protocol", "smtp");//¼òµ¥ÓÊ¼ş´«ÊäĞ­Òé
+           prop.setProperty("mail.transport.protocol", "smtp");//ç®€å•é‚®ä»¶ä¼ è¾“åè®®
            prop.setProperty("mail.smtp.auth", "true");
-           //Ê¹ÓÃJavaMail·¢ËÍÓÊ¼şµÄ ¸ö²½Öè
-           // ¡¢´´½¨session
+           //ä½¿ç”¨JavaMailå‘é€é‚®ä»¶çš„ ä¸ªæ­¥éª¤
+           // ã€åˆ›å»ºsession
            Session session = Session.getInstance(prop);
-          //¿ªÆôSessionµÄdebugÄ£Ê½£¬ÕâÑù¾Í¿ÉÒÔ²é¿´µ½³ÌĞò·¢ËÍEmailµÄÔËĞĞ×´Ì¬
+          //å¼€å¯Sessionçš„debugæ¨¡å¼ï¼Œè¿™æ ·å°±å¯ä»¥æŸ¥çœ‹åˆ°ç¨‹åºå‘é€Emailçš„è¿è¡ŒçŠ¶æ€
            session.setDebug(true);
-           // ¡¢Í¨¹ısessionµÃµ½transport¶ÔÏó
+           // ã€é€šè¿‡sessionå¾—åˆ°transportå¯¹è±¡
            Transport ts = session.getTransport();
-           // ¡¢Ê¹ÓÃÓÊÏäµÄÓÃ»§ÃûºÍÃÜÂëÁ¬ÉÏÓÊ¼ş·şÎñÆ÷£¬·¢ËÍÓÊ¼şÊ±£¬·¢¼şÈËĞèÒªÌá½»ÓÊÏäµÄÓÃ»§ÃûºÍÃÜÂë¸øsmtp·şÎñÆ÷£¬ÓÃ»§ÃûºÍÃÜÂë¶¼Í¨¹ıÑéÖ¤Ö®ºó²ÅÄÜ¹»Õı³£·¢ËÍÓÊ¼ş¸øÊÕ¼şÈË¡£
-           ts.connect("smtp.qiye.163.com", "lsx@ultimobi.com", "woaiwojia405");
-           // ¡¢´´½¨ÓÊ¼ş  °üº¬·¢ËÍÕß ½ÓÊÕÕß Ö÷Ìâ ÄÚÈİ 
+           // ã€ä½¿ç”¨é‚®ç®±çš„ç”¨æˆ·åå’Œå¯†ç è¿ä¸Šé‚®ä»¶æœåŠ¡å™¨ï¼Œå‘é€é‚®ä»¶æ—¶ï¼Œå‘ä»¶äººéœ€è¦æäº¤é‚®ç®±çš„ç”¨æˆ·åå’Œå¯†ç ç»™smtpæœåŠ¡å™¨ï¼Œç”¨æˆ·åå’Œå¯†ç éƒ½é€šè¿‡éªŒè¯ä¹‹åæ‰èƒ½å¤Ÿæ­£å¸¸å‘é€é‚®ä»¶ç»™æ”¶ä»¶äººã€‚
+           ts.connect("smtp.qiye.163.com", "as@ultimobi.com", "123456");
+           // ã€åˆ›å»ºé‚®ä»¶  åŒ…å«å‘é€è€… æ¥æ”¶è€… ä¸»é¢˜ å†…å®¹ 
           // Message message = createSimpleMail(session);
           // Message message = createImageMail(session);
            Message message = createMixedMail(session);
            
-           // ¡¢·¢ËÍÓÊ¼ş
+           // ã€å‘é€é‚®ä»¶
            ts.sendMessage(message, message.getAllRecipients());
-           //¹Ø±ÕÁ¬½Ó
+           //å…³é—­è¿æ¥
            ts.close();
      }
      
      /**
      * @Method: createSimpleMail
-     * @Description: ´´½¨Ò»·âÖ»°üº¬ÎÄ±¾µÄÓÊ¼ş
-     * @Anthor:¹Â°Á²ÔÀÇ
+     * @Description: åˆ›å»ºä¸€å°åªåŒ…å«æ–‡æœ¬çš„é‚®ä»¶
+     * @Anthor:å­¤å‚²è‹ç‹¼
 
      */ 
        public static MimeMessage createSimpleMail(Session session)
                throws Exception {
-           //´´½¨ÓÊ¼ş¶ÔÏó
+           //åˆ›å»ºé‚®ä»¶å¯¹è±¡
            MimeMessage message = new MimeMessage(session);
-           //Ö¸Ã÷ÓÊ¼şµÄ·¢¼şÈË
-           message.setFrom(new InternetAddress("lsx@ultimobi.com"));
-           //Ö¸Ã÷ÓÊ¼şµÄÊÕ¼şÈË£¬ÏÖÔÚ·¢¼şÈËºÍÊÕ¼şÈËÊÇÒ»ÑùµÄ£¬ÄÇ¾ÍÊÇ×Ô¼º¸ø×Ô¼º·¢
-           message.setRecipient(Message.RecipientType.TO, new InternetAddress("1014426766@qq.com"));
-           //ÓÊ¼şµÄ±êÌâ
-           message.setSubject("Ö»°üº¬ÎÄ±¾µÄ¼òµ¥ÓÊ¼ş");
-           //ÓÊ¼şµÄÎÄ±¾ÄÚÈİ
-           message.setContent("ÄãºÃ°¡£¡", "text/html;charset=UTF-8");
-           //·µ»Ø´´½¨ºÃµÄÓÊ¼ş¶ÔÏó
+           //æŒ‡æ˜é‚®ä»¶çš„å‘ä»¶äºº
+           message.setFrom(new InternetAddress("as@ultimobi.com"));
+           //æŒ‡æ˜é‚®ä»¶çš„æ”¶ä»¶äººï¼Œç°åœ¨å‘ä»¶äººå’Œæ”¶ä»¶äººæ˜¯ä¸€æ ·çš„ï¼Œé‚£å°±æ˜¯è‡ªå·±ç»™è‡ªå·±å‘
+           message.setRecipient(Message.RecipientType.TO, new InternetAddress("101@qq.com"));
+           //é‚®ä»¶çš„æ ‡é¢˜
+           message.setSubject("åªåŒ…å«æ–‡æœ¬çš„ç®€å•é‚®ä»¶");
+           //é‚®ä»¶çš„æ–‡æœ¬å†…å®¹
+           message.setContent("ä½ å¥½å•Šï¼", "text/html;charset=UTF-8");
+           //è¿”å›åˆ›å»ºå¥½çš„é‚®ä»¶å¯¹è±¡
            return message;
        }
        //com.sun.mail.smtp.SMTPSendFailedException: [EOF]
        public static MimeMessage createImageMail(Session session) throws Exception {
-	            //´´½¨ÓÊ¼ş
+	            //åˆ›å»ºé‚®ä»¶
 	            MimeMessage message = new MimeMessage(session);
-	            // ÉèÖÃÓÊ¼şµÄ»ù±¾ĞÅÏ¢
-	            //·¢¼şÈË
-	            message.setFrom(new InternetAddress("lsx@ultimobi.com"));
-	            //ÊÕ¼şÈË
-	            message.setRecipient(Message.RecipientType.TO, new InternetAddress("1014426766@qq.com"));
-	            //ÓÊ¼ş±êÌâ
-	            message.setSubject("´øÍ¼Æ¬µÄÓÊ¼ş");
+	            // è®¾ç½®é‚®ä»¶çš„åŸºæœ¬ä¿¡æ¯
+	            //å‘ä»¶äºº
+	            message.setFrom(new InternetAddress("as@ultimobi.com"));
+	            //æ”¶ä»¶äºº
+	            message.setRecipient(Message.RecipientType.TO, new InternetAddress("101@qq.com"));
+	            //é‚®ä»¶æ ‡é¢˜
+	            message.setSubject("å¸¦å›¾ç‰‡çš„é‚®ä»¶");
 	    
-	            // ×¼±¸ÓÊ¼şÊı¾İ
-	            // ×¼±¸ÓÊ¼şÕıÎÄÊı¾İ
+	            // å‡†å¤‡é‚®ä»¶æ•°æ®
+	            // å‡†å¤‡é‚®ä»¶æ­£æ–‡æ•°æ®
 	            MimeBodyPart text = new MimeBodyPart();
-	            text.setContent("ÕâÊÇÒ»·âÓÊ¼şÕıÎÄ´øÍ¼Æ¬<img src='cid:xxx.jpg'>µÄÓÊ¼ş", "text/html;charset=UTF-8");
-	            // ×¼±¸Í¼Æ¬Êı¾İ
+	            text.setContent("è¿™æ˜¯ä¸€å°é‚®ä»¶æ­£æ–‡å¸¦å›¾ç‰‡<img src='cid:xxx.jpg'>çš„é‚®ä»¶", "text/html;charset=UTF-8");
+	            // å‡†å¤‡å›¾ç‰‡æ•°æ®
 	            MimeBodyPart image = new MimeBodyPart();
 	            DataHandler dh = new DataHandler(new FileDataSource("src\\1.jpg"));
 	            image.setDataHandler(dh);
 	            image.setContentID("xxx.jpg");
-	            // ÃèÊöÊı¾İ¹ØÏµ
+	            // æè¿°æ•°æ®å…³ç³»
 	            MimeMultipart mm = new MimeMultipart();
 	            mm.addBodyPart(text);
 	            mm.addBodyPart(image);
 	            mm.setSubType("related");
 	    
-	            message.setContent(mm);//Õâ´ÎµÄcontentÊÇ¸ö¶ÔÏó£ºº¬ÓĞÍ¼Æ¬ºÍÎÄ×Ö
+	            message.setContent(mm);//è¿™æ¬¡çš„contentæ˜¯ä¸ªå¯¹è±¡ï¼šå«æœ‰å›¾ç‰‡å’Œæ–‡å­—
 	            message.saveChanges();
-	            //½«´´½¨ºÃµÄÓÊ¼şĞ´Èëµ½EÅÌÒÔÎÄ¼şµÄĞÎÊ½½øĞĞ±£´æ
+	            //å°†åˆ›å»ºå¥½çš„é‚®ä»¶å†™å…¥åˆ°Eç›˜ä»¥æ–‡ä»¶çš„å½¢å¼è¿›è¡Œä¿å­˜
 	            message.writeTo(new FileOutputStream("E:\\ImageMail.eml"));
-	            //·µ»Ø´´½¨ºÃµÄÓÊ¼ş
+	            //è¿”å›åˆ›å»ºå¥½çš„é‚®ä»¶
 	            return message;
        }
        public static MimeMessage createMixedMail(Session session) throws Exception {
-    	            //´´½¨ÓÊ¼ş
+    	            //åˆ›å»ºé‚®ä»¶
     	            MimeMessage message = new MimeMessage(session);
     	            
-    	            //ÉèÖÃÓÊ¼şµÄ»ù±¾ĞÅÏ¢
-    	            message.setFrom(new InternetAddress("lsx@ultimobi.com"));
-    	            message.setRecipient(Message.RecipientType.TO, new InternetAddress("1014426766@qq.com"));
-    	            message.setSubject("´ø¸½¼şºÍ´øÍ¼Æ¬µÄµÄÓÊ¼ş");
+    	            //è®¾ç½®é‚®ä»¶çš„åŸºæœ¬ä¿¡æ¯
+    	            message.setFrom(new InternetAddress("as@ultimobi.com"));
+    	            message.setRecipient(Message.RecipientType.TO, new InternetAddress("101@qq.com"));
+    	            message.setSubject("å¸¦é™„ä»¶å’Œå¸¦å›¾ç‰‡çš„çš„é‚®ä»¶");
     	            
-    	            //ÕıÎÄ
+    	            //æ­£æ–‡
     	            MimeBodyPart text = new MimeBodyPart();
-    	            text.setContent("xxxÕâÊÇÅ®µÄxxxx<br/><img src='cid:aaa.jpg'>","text/html;charset=UTF-8");
+    	            text.setContent("xxxè¿™æ˜¯å¥³çš„xxxx<br/><img src='cid:aaa.jpg'>","text/html;charset=UTF-8");
     	            
-    	            //Í¼Æ¬
+    	            //å›¾ç‰‡
     	            MimeBodyPart image = new MimeBodyPart();
     	            image.setDataHandler(new DataHandler(new FileDataSource("src\\3.jpg")));
     	            image.setContentID("aaa.jpg");
     	            
-    	            //¸½¼ş1
+    	            //é™„ä»¶1
     	            MimeBodyPart attach = new MimeBodyPart();
     	            DataHandler dh = new DataHandler(new FileDataSource("src\\4.jar"));
     	            attach.setDataHandler(dh);
     	            attach.setFileName(dh.getName());
     	            
-    	            //¸½¼ş2
+    	            //é™„ä»¶2
     	            MimeBodyPart attach2 = new MimeBodyPart();
     	            DataHandler dh2 = new DataHandler(new FileDataSource("src\\ofbiz.zip"));
     	            attach2.setDataHandler(dh2);
-    	            //Ãû×ÖÎªÖĞÎÄµÄÊ±ºòĞèÒª´¦Àí
+    	            //åå­—ä¸ºä¸­æ–‡çš„æ—¶å€™éœ€è¦å¤„ç†
     	            attach2.setFileName(MimeUtility.encodeText(dh2.getName()));
     	            
-    	            //ÃèÊö¹ØÏµ:ÕıÎÄºÍÍ¼Æ¬
+    	            //æè¿°å…³ç³»:æ­£æ–‡å’Œå›¾ç‰‡
     	            MimeMultipart mp1 = new MimeMultipart();
     	            mp1.addBodyPart(text);
     	            mp1.addBodyPart(image);
     	            mp1.setSubType("related");
     	            
-    	          //´ú±íÕıÎÄµÄbodypart
+    	          //ä»£è¡¨æ­£æ–‡çš„bodypart
      	           MimeBodyPart content = new MimeBodyPart();
      	           content.setContent(mp1);
     	            
-    	            //ÃèÊö¹ØÏµ:ÕıÎÄºÍ¸½¼ş
+    	            //æè¿°å…³ç³»:æ­£æ–‡å’Œé™„ä»¶
     	            MimeMultipart mp2 = new MimeMultipart();
     	            mp2.addBodyPart(attach);
     	            mp2.addBodyPart(attach2);
@@ -151,7 +151,7 @@ public class Sendmail {
     	           message.saveChanges();
     	           
     	           message.writeTo(new FileOutputStream("E:\\MixedMail.eml"));
-    	           //·µ»Ø´´½¨ºÃµÄµÄÓÊ¼ş
+    	           //è¿”å›åˆ›å»ºå¥½çš„çš„é‚®ä»¶
     	           return message;
     	       }
    }
@@ -183,15 +183,15 @@ DEBUG SMTP: Using mechanism LOGIN
 DEBUG SMTP: AUTH LOGIN command trace suppressed
 DEBUG SMTP: AUTH LOGIN succeeded
 DEBUG SMTP: use8bit false
-MAIL FROM:<lsx@ultimobi.com>
+MAIL FROM:<as@ultimobi.com>
 250 Mail OK
-RCPT TO:<1014426766@qq.com>
+RCPT TO:<101@qq.com>
 250 Mail OK
 DEBUG SMTP: Verified Addresses
-DEBUG SMTP:   1014426766@qq.com
+DEBUG SMTP:   101@qq.com
 DATA
 354 End data with <CR><LF>.<CR><LF>
-From: lsx@ultimobi.com
+From: as@ultimobi.com
 To: 1014426766@qq.com
 Message-ID: <664687665.0.1474705096936@smtp.qiye.163.com>
 Subject: =?GBK?B?1ruw/LqszsSxvrXEvPK1pdPKvP4=?=
